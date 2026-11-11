@@ -19,15 +19,20 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * Get the attributes that should be cast.
+     * Defaults for new models so is_admin never serializes as null.
      *
-     * @return array<string, string>
+     * @var array<string, mixed>
      */
+    protected $attributes = [
+        'is_admin' => false,
+    ];
+
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_admin' => 'boolean',
         ];
     }
 }
